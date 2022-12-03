@@ -1,8 +1,11 @@
 import os
 import openai
 import text_to_speech as tsp
+from decouple import config
 
-openai.api_key = "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"
+API_KEY = config('KEY')
+
+openai.api_key = API_KEY
 
 def talkCasual(prompt):
     response = openai.Completion.create(

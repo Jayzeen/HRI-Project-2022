@@ -1,3 +1,5 @@
 /.ipynb_checkpoints
 /chatbots
 __pycache__
+.env
+test.py
