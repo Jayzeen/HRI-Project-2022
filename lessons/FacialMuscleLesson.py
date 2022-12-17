@@ -32,7 +32,7 @@ def FacialMuscleExerciseLesson():
             tsp.text2speech2("Speak ,U, sound loudly and stretching your face with letter sound, continue it for five seconds. ")
             time.sleep(6)
             
-            tsp.text2speech("wow! now that is some damn good pronounciations!")
+            tsp.text2speech("wow! now that is some good pronounciations!")
             tsp.text2speech("Now relax your mouth and repeat this six times")
               
         elif "bye" in userResponse:

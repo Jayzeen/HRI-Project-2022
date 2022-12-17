@@ -2,6 +2,7 @@ import text_to_speech as tsp
 import speech_to_text as stt
 import whisperApi as whisper
 import startTrainingPlan as tp
+import faceEmotionDetection as fed
 from multiprocessing import Process
 
 import wikipedia
@@ -46,7 +47,7 @@ def ConversationFlow():
                 tsp.text2speech("Sorry, i didn't quite catch that. Could you please repeat it again? Thank you!")
                 
         elif "bye" in userResponse:
-            tsp.text2speech("I'm going to miss you.Bye bye now.")
+            tsp.text2speech("I'm going to miss you. Bye bye now.")
             break  
         
         elif "stop" in userResponse:
@@ -111,8 +112,12 @@ def main():
         if pa is not None:
             pa.terminate()
 
+# Emotion detection process
+def emotion():
+    fed.faceEmotionDetection()
 
-def interrupt(p1):
+# Interrupt the system if user wants
+def interrupt(p1, p2):
     while True:
         if keyboard.is_pressed("q"):
             time.sleep(5)
@@ -120,12 +125,17 @@ def interrupt(p1):
             tsp.text2speech("Have a nice day!")
             print("User interrupted the program. Killing all processes")
             p1.terminate()
+            p2.terminate()
             endSound()
-            sys.exit()
-        
+            break
 
-if __name__=='__main__':    
+
+if __name__=='__main__':
+        
     p1 = Process(target=main)
     p1.start()
-
-    p2= Process(target=interrupt(p1))
+    p2 = Process(target=emotion)
+    p2.start()
+    p3 = Process(target=interrupt(p1, p2))
+    
+    
