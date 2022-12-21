@@ -3,3 +3,7 @@
 __pycache__
 .env
 test.py
+name
+detect_face_video.py
+test1.py
+blenderbot_chatbot.ipynb

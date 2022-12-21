@@ -1,6 +1,7 @@
 import text_to_speech as tsp
 import speech_to_text as stt
 import time
+import control_robot as cr
 
 def FacialMuscleExerciseLesson():
     
@@ -33,6 +34,13 @@ def FacialMuscleExerciseLesson():
             time.sleep(6)
             
             tsp.text2speech("wow! now that is some good pronounciations!")
+            flag = True
+            if flag:
+                try:
+                    cr.robot_listen()
+                    flag = False
+                except:
+                    pass 
             tsp.text2speech("Now relax your mouth and repeat this six times")
               
         elif "bye" in userResponse:

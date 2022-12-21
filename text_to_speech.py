@@ -1,6 +1,7 @@
 import pyttsx3
+import control_robot as cr
 
-
+# ************* FUNCTIONS TO CONVERT TEXT TO SPEECH *************
 def text2speech(text):
     # initialize Text-to-speech engine
     engine = pyttsx3.init()
@@ -15,8 +16,16 @@ def text2speech(text):
     # play the speech
     engine.say(text)
 
-
     engine.runAndWait()
+    
+    # Robot interaction
+    flag = True
+    if flag:
+        try:
+            cr.robot_listen()
+            flag = False
+        except:
+            pass
     
 
 def text2speech2(text):
@@ -29,11 +38,20 @@ def text2speech2(text):
 
     # Set voice to what we want
     engine.setProperty("voice", voices[3].id)
-    engine.setProperty("rate", 120)
+    engine.setProperty("rate", 150)
 
     # play the speech
     engine.say(text)
 
-
     engine.runAndWait()
+    
+    # Robot interaction
+    # flag = True
+    # if flag:
+    #     try:
+    #         cr.robot_listen()
+    #         flag = False
+    #     except:
+    #         pass
+    
     

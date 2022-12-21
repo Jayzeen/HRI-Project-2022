@@ -6,6 +6,7 @@ import time
 from lessons import BreathingLesson as bl
 from lessons import MouthLesson as ml
 from lessons import FacialMuscleLesson as fl
+from lessons import SpeakingLesson as sl
 
 
 def StartTrainingPlan():
@@ -21,12 +22,16 @@ def StartTrainingPlan():
             bl.BreathingExerciseLesson()
     
         elif "mouth exercises" in userResponse:
-            tsp.text2speech("Okay, Let's start doing some mouth exercises")
+            tsp.text2speech("Great, Let's start doing some mouth exercises")
             ml.MouthExerciseLesson()
             
         elif "facial muscle exercises" in userResponse:
-            tsp.text2speech("Okay, Let's start doing some facial muscles exercises")
+            tsp.text2speech("Very good, Let's start doing some facial muscles exercises")
             fl.FacialMuscleExerciseLesson()
+            
+        elif "speaking exercises" in userResponse:
+            tsp.text2speech("Great choice, Let's start doing some speaking exercises")
+            sl.SpeechExerciseLesson()
             
         elif "bye" in userResponse:
             tsp.text2speech("Good bye! Let's meet again")

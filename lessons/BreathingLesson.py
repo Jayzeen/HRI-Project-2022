@@ -1,11 +1,12 @@
 import text_to_speech as tsp
 import speech_to_text as stt
 import time
+import control_robot as cr
 
 
 def BreathingExerciseLesson():
     
-    tsp.text2speech("Hello Friend. So let's start the guided breathing exercises")
+    tsp.text2speech("Hello hello. So let's start the guided breathing exercises")
     tsp.text2speech("Take a few minutes to get ready to start.")
     time.sleep(2)
     while True:
@@ -38,6 +39,13 @@ def BreathingExerciseLesson():
             time.sleep(5)
             
             tsp.text2speech("Okay! Good Job!")
+            flag = True
+            if flag:
+                try:
+                    cr.robot_listen()
+                    flag = False
+                except:
+                    pass 
             tsp.text2speech("Now shall we move on to the next breathing exercise")
             
         elif "next" in userResponse:
@@ -63,7 +71,14 @@ def BreathingExerciseLesson():
             tsp.text2speech2("The hand on your upper chest must remain as still as possible.")
             time.sleep(5)
             
-            tsp.text2speech("Okay! Good Job!")
+            tsp.text2speech("Wow! Nice Job!")
+            flag = True
+            if flag:
+                try:
+                    cr.robot_listen()
+                    flag = False
+                except:
+                    pass 
             tsp.text2speech("Now repeat the above process for a few minutes")
               
         elif "bye" in userResponse:

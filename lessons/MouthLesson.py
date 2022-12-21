@@ -1,6 +1,7 @@
 import text_to_speech as tsp
 import speech_to_text as stt
 import time
+import control_robot as cr
 
 
 def MouthExerciseLesson():
@@ -30,6 +31,13 @@ def MouthExerciseLesson():
             time.sleep(3)
             
             tsp.text2speech("Okay! Good Job!")
+            flag = True
+            if flag:
+                try:
+                    cr.robot_listen()
+                    flag = False
+                except:
+                    pass 
             tsp.text2speech("Now repeat the above steps again and again for a few minutes")
               
         elif "bye" in userResponse:

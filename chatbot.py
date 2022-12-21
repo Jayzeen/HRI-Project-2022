@@ -4,6 +4,7 @@ import whisperApi as whisper
 import startTrainingPlan as tp
 import faceEmotionDetection as fed
 from multiprocessing import Process
+import control_robot as cr
 
 import wikipedia
 import pyjokes
@@ -14,7 +15,6 @@ import struct
 import winsound
 import winaudio
 import keyboard
-import sys
 
 
 def ConversationFlow():
@@ -23,6 +23,11 @@ def ConversationFlow():
         
         if "hello" in userResponse:
             tsp.text2speech("Hello friend")
+        
+        elif "your name" in userResponse or "who are you" in userResponse:
+            tsp.text2speech("My name is Bumblebee.")
+            tsp.text2speech("I am hoping to be good friends with you.")
+            tsp.text2speech("I will help you in any way you can")
             
         elif "tell me a joke" in userResponse:
             try:
@@ -43,6 +48,7 @@ def ConversationFlow():
             try:
                 tsp.text2speech("Great!! We are going to do a lesson.")
                 tp.StartTrainingPlan()
+
             except:
                 tsp.text2speech("Sorry, i didn't quite catch that. Could you please repeat it again? Thank you!")
                 
@@ -58,7 +64,7 @@ def ConversationFlow():
             continue
         
         else :
-            whisper.talkCasual(userResponse)
+            whisper.talkSarcastically(userResponse)
         
         time.sleep(1)
 
@@ -94,10 +100,17 @@ def main():
             pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
             
             keyword_index = porcupine.process(pcm)
+            flag = True
             if keyword_index >= 0:
                 wakeUpSound()
                 print("*********** Chat bot is waking up*************")
                 print("===========================================")
+                if flag:
+                    try:
+                        cr.robot_happy()
+                        flag = False
+                    except:
+                        continue    
                 tsp.text2speech("You woke me up. I guess you are in the mood for a lesson then. Let's go")
                 ConversationFlow()
                 time.sleep(2)

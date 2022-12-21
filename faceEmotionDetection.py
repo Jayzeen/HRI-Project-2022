@@ -1,14 +1,13 @@
 import cv2
 import numpy as np
 import text_to_speech as tsp
-import sys
 import winsound
-
 # Import deepface library
 from deepface import DeepFace
 
 # Import haarcascade file for face detection
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
 
 def endSound():
     winsound.Beep(600, 300)
@@ -22,11 +21,13 @@ def faceEmotionDetection():
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         gray = np.array(gray, dtype='uint8')
         faces = faceCascade.detectMultiScale(gray,1.1,4)
+        
 
         # Draw rectangle
         for(x,y,w,h) in faces:
             cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
-            
+
+
         # putText method to include text
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(img,
@@ -39,7 +40,8 @@ def faceEmotionDetection():
 
 
     # Realtime Emotion detection
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
+    
     # Check if webcam opened correctly
     if not cap.isOpened():
         cap = cv2.VideoCapture(0)
@@ -54,7 +56,7 @@ def faceEmotionDetection():
         if result['dominant_emotion'] == 'angry':
             count += 1
         
-        if count == 100:
+        if count == 3:
             tsp.text2speech("Hey, You seems a little bit stressed. Why don't we take a break and continue later")
             tsp.text2speech("You are already doing a good job")
             tsp.text2speech("Let's meet up for a lesson later. Good Bye!")
@@ -65,7 +67,7 @@ def faceEmotionDetection():
         
         visualizeEmotion(frame, result)
         
-        cv2.imshow('Original video', frame)
+        cv2.imshow('Resized_Window', frame)
         
         if cv2.waitKey(2) & 0xFF == ord('w'):
             print("Stopping Emotion Detection....")
@@ -74,3 +76,4 @@ def faceEmotionDetection():
     cap.release()
     cv2.destroyAllWindows()
     
+
